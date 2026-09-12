@@ -49,8 +49,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # The owner is mentioned by name so the issue reaches the inbox
+          # through the mentions channel, independent of the Actions
+          # notification setting. Two channels, because one failed silently.
           title="Series stopped: $(date -u +%F)"
-          body="$(printf 'The watchdog found a problem at %s.\n\n```\n%s\n```\n\nRun: %s' "$(date -u +%FT%H:%MZ)" "$(cat report.txt)" "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}")"
+          body="$(printf '@%s the watchdog found a problem at %s.\n\n```\n%s\n```\n\nRun: %s' "${{ github.repository_owner }}" "$(date -u +%FT%H:%MZ)" "$(cat report.txt)" "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}")"
           gh issue create --title "$title" --body "$body" --label gap || gh issue create --title "$title" --body "$body"
       - name: Fail so that GitHub sends the notification
         if: steps.check.outputs.code != '0'
