@@ -8,7 +8,8 @@ name: watchdog
 
 on:
   schedule:
-    - cron: "0 13 * * *"
+    - cron: "33 12 * * *"
+    - cron: "33 19 * * *"
   workflow_dispatch:
     inputs:
       simulate:
@@ -54,7 +55,13 @@ jobs:
           # notification setting. Two channels, because one failed silently.
           title="Series stopped: $(date -u +%F)"
           body="$(printf '@%s the watchdog found a problem at %s.\n\n```\n%s\n```\n\nRun: %s' "${{ github.repository_owner }}" "$(date -u +%FT%H:%MZ)" "$(cat report.txt)" "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}")"
-          gh issue create --title "$title" --body "$body" --label gap || gh issue create --title "$title" --body "$body"
+          # One open issue per outage: the second check of the day comments instead of duplicating.
+          open=$(gh issue list --label gap --state open --json number -q '.[0].number')
+          if [ -n "$open" ]; then
+            gh issue comment "$open" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body" --label gap || gh issue create --title "$title" --body "$body"
+          fi
       - name: Fail so that GitHub sends the notification
         if: steps.check.outputs.code != '0'
         run: exit 1

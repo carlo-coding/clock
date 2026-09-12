@@ -40,7 +40,7 @@ Leads 2 to 7 days are recorded from day one with no rival to compare against, be
 
 ## Decisions, made once
 
-- **Issue time.** 07:40 UTC, which is before the 12:00 CET/CEST gate closure all year. Cron cannot follow daylight saving, so the cutoff is fixed in UTC and every file records `before_gate_closure`. A late file is published and flagged; a flagged file beats a hole.
+- **Issue time.** 04:17 UTC, with hourly retries until 07:17, all before the 12:00 CET/CEST gate closure. GitHub queues cron jobs under load and the delay can run to hours (the first day's 07:40 slot ran at 11:42), so the slot is early and the retries are no-ops once the day's file exists. Cron cannot follow daylight saving, so the cutoff is fixed in UTC and every file records `before_gate_closure`. A late file is published and flagged, and the watchdog alerts on it; a flagged file beats a hole.
 - **Phase 1 model is naive** (`naive-v1`): wind is persistence (same UTC hour of the last complete day), solar the mean of the last three days, load and price the same hour a week earlier. Persistence and weekly baselines are always published beside the clock. The scarce thing is the dated series; the method improves forward, and the model name is written into every file so a change is visible.
 - **Hourly, UTC, from quarter-hours.** The platform publishes 15-minute values; they are averaged to hours. An hour is kept only if at least half of it is present, and the coverage is stored next to the value. A gap is a gap; nothing is interpolated.
 - **Delivery days follow the CET/CEST calendar** and have 23, 24 or 25 hours on the two switch days. The code never assumes 24.
@@ -49,6 +49,8 @@ Leads 2 to 7 days are recorded from day one with no rival to compare against, be
 - **Same hours for every source.** An hour counts only if the actual and every source being compared have it.
 - **Wind is onshore plus offshore** where both exist. **Price** takes the platform's classification sequence 1 when it publishes more than one series.
 - **The front page withholds the headline number until 30 days** have been scored against the operator's forecast. A score over a handful of days measures nothing and looks like it does.
+- **Days under different models are never averaged together.** Every score carries the model version that produced it; the page shows one row per model and the headline counts only the current one.
+- **Hourly jobs miss hours.** GitHub skips or delays scheduled runs under load (the first day, 4 of 15 intraday slots ran). The intraday record is append-only with the run time in every line, so a missed hour is a missing line, not an invented one.
 
 ## The record
 

@@ -69,7 +69,12 @@ UNITS = {"wind": "MW", "solar": "MW", "load": "MW", "price": "EUR/MWh"}
 # and 10:00 UTC in summer). Cron runs in UTC and cannot follow daylight
 # saving, so the cutoff is fixed in UTC and the file records whether it was
 # met. A late issue is still published: a flagged late file beats a hole.
-ISSUE_HOUR_UTC = 7
+#
+# GitHub does not honour cron times under load: on the first day the 07:40
+# slot ran at 11:42, after gate closure. So the slot is early and the
+# workflow retries hourly until 07:17; every retry is a no-op once the day's
+# file exists. Six hours of slack before the summer gate.
+ISSUE_HOUR_UTC = 4
 GATE_CLOSURE_LOCAL_HOUR = 12  # in Europe/Berlin, converted per day
 
 # Lead times in days. Lead 1 is day-ahead, the headline. Leads 2 to 7 are

@@ -95,24 +95,39 @@ def _mean(rows: list[dict], source: str, key: str) -> float | None:
     return sum(xs) / len(xs) if xs else None
 
 
+def _by_model(rows: list[dict]) -> dict[str, list[dict]]:
+    """Rows grouped by the model that produced them, in order of first appearance.
+
+    Days under different models are never averaged together: a naive first
+    month and a real model afterwards would otherwise share one number."""
+    out: dict[str, list[dict]] = {}
+    for r in rows:
+        out.setdefault(r.get("model") or "?", []).append(r)
+    return out
+
+
 def headline_block(docs) -> str:
     z, t = config.HEADLINE["zone"], config.HEADLINE["target"]
     rows = lead_rows(docs, z, t, "1")
     with_off = [r for r in rows if r.get("official") and r["official"].get("n")]
-    n = len(with_off)
+    groups = _by_model(with_off)
+    current = groups.get(config.MODEL_VERSION, [])
+    n = len(current)
     key, label, digits = _metric_key(t)
+    others = [m for m in groups if m != config.MODEL_VERSION]
+    tail = f" Days under earlier models ({', '.join(others)}) are in the table below, not in this number." if others else ""
     if n < config.MIN_DAYS_FOR_HEADLINE:
-        head = f"{n} of {config.MIN_DAYS_FOR_HEADLINE} delivery days scored against the operator's own forecast."
+        head = f"{n} of {config.MIN_DAYS_FOR_HEADLINE} delivery days scored against the operator's own forecast under model {config.MODEL_VERSION}."
         note = (
             f"The headline number, {z} {t} day-ahead against the TSO's forecast, is withheld until "
-            f"{config.MIN_DAYS_FOR_HEADLINE} days are on record. A score over a handful of days measures nothing and looks like it does."
+            f"{config.MIN_DAYS_FOR_HEADLINE} days are on record. A score over a handful of days measures nothing and looks like it does.{tail}"
         )
         return f'<p class="headline">{_esc(head)}</p><p class="muted">{_esc(note)}</p>'
-    clock = _mean(with_off, "clock", key)
-    off = _mean(with_off, "official", key)
+    clock = _mean(current, "clock", key)
+    off = _mean(current, "official", key)
     skill = 1 - clock / off if clock is not None and off else None
     head = f"Against the operator's own day-ahead forecast, over {n} days: clock {_f(clock, digits)}% {label.split(',')[0]}, operator {_f(off, digits)}%."
-    note = f"Skill {_pct(skill)}. Positive means the clock beat the TSO's published forecast on the same hours. Model {with_off[-1]['model']}."
+    note = f"Skill {_pct(skill)}. Positive means the clock beat the TSO's published forecast on the same hours. Model {config.MODEL_VERSION}.{tail}"
     return f'<p class="headline">{_esc(head)}</p><p class="muted">{_esc(note)}</p>'
 
 
@@ -154,33 +169,35 @@ def chart(docs) -> str:
 
 
 def targets_table(docs) -> str:
-    out = ['<div class="wrap"><table><tr><th>Zone · target</th><th>Days</th><th>Metric</th><th>Clock</th><th>Persistence</th><th>Weekly</th><th>Operator</th><th>Skill vs operator</th></tr>']
+    out = ['<div class="wrap"><table><tr><th>Zone · target</th><th>Model</th><th>Days</th><th>Metric</th><th>Clock</th><th>Persistence</th><th>Weekly</th><th>Operator</th><th>Skill vs operator</th></tr>']
     for zone in config.ZONES:
         for target in config.TARGETS[zone]:
-            rows = lead_rows(docs, zone, target, "1")
             key, label, digits = _metric_key(target)
-            off_rows = [r for r in rows if r.get("official") and r["official"].get("n")]
-            clock = _mean(rows, "clock", key)
-            off = _mean(off_rows, "official", key)
-            clock_off = _mean(off_rows, "clock", key)
-            skill = (1 - clock_off / off) if clock_off is not None and off else None
-            out.append(
-                f"<tr><td>{zone} · {target}</td><td>{len(rows)}</td><td>{_esc(label.split(',')[0])}</td>"
-                f"<td>{_f(clock, digits)}</td><td>{_f(_mean(rows, 'persistence', key), digits)}</td><td>{_f(_mean(rows, 'weekly', key), digits)}</td>"
-                f"<td>{_f(off, digits) if target != 'price' else 'none exists'}</td><td>{_pct(skill)}</td></tr>"
-            )
+            groups = _by_model(lead_rows(docs, zone, target, "1")) or {config.MODEL_VERSION: []}
+            for model, rows in groups.items():
+                off_rows = [r for r in rows if r.get("official") and r["official"].get("n")]
+                clock = _mean(rows, "clock", key)
+                off = _mean(off_rows, "official", key)
+                clock_off = _mean(off_rows, "clock", key)
+                skill = (1 - clock_off / off) if clock_off is not None and off else None
+                out.append(
+                    f"<tr><td>{zone} · {target}</td><td>{_esc(model)}</td><td>{len(rows)}</td><td>{_esc(label.split(',')[0])}</td>"
+                    f"<td>{_f(clock, digits)}</td><td>{_f(_mean(rows, 'persistence', key), digits)}</td><td>{_f(_mean(rows, 'weekly', key), digits)}</td>"
+                    f"<td>{_f(off, digits) if target != 'price' else 'none exists'}</td><td>{_pct(skill)}</td></tr>"
+                )
     out.append("</table></div>")
-    out.append('<p class="muted">Day-ahead (lead 1), mean of daily scores, every source over the same hours. Solar over daylight hours only. Operator columns count only days where the TSO forecast was captured before delivery.</p>')
+    out.append('<p class="muted">Day-ahead (lead 1), mean of daily scores, every source over the same hours, one row per model version. Solar over daylight hours only. Operator columns count only days where the TSO forecast was captured before delivery.</p>')
     return "".join(out)
 
 
 def leads_table(docs) -> str:
     z, t = config.HEADLINE["zone"], config.HEADLINE["target"]
     key, label, digits = _metric_key(t)
-    out = [f'<div class="wrap"><table><tr><th>Lead, days</th><th>Days</th><th>Clock</th><th>Persistence</th><th>Weekly</th></tr>']
+    out = [f'<div class="wrap"><table><tr><th>Lead, days</th><th>Model</th><th>Days</th><th>Clock</th><th>Persistence</th><th>Weekly</th></tr>']
     for k in config.LEAD_DAYS:
-        rows = lead_rows(docs, z, t, str(k))
-        out.append(f"<tr><td>{k}</td><td>{len(rows)}</td><td>{_f(_mean(rows, 'clock', key), digits)}</td><td>{_f(_mean(rows, 'persistence', key), digits)}</td><td>{_f(_mean(rows, 'weekly', key), digits)}</td></tr>")
+        groups = _by_model(lead_rows(docs, z, t, str(k))) or {config.MODEL_VERSION: []}
+        for model, rows in groups.items():
+            out.append(f"<tr><td>{k}</td><td>{_esc(model)}</td><td>{len(rows)}</td><td>{_f(_mean(rows, 'clock', key), digits)}</td><td>{_f(_mean(rows, 'persistence', key), digits)}</td><td>{_f(_mean(rows, 'weekly', key), digits)}</td></tr>")
     out.append("</table></div>")
     out.append(f'<p class="muted">{z} {t}, {_esc(label)}. Leads 2 to 7 have no official forecast to compare against; they are on record so that the series exists when they do.</p>')
     return "".join(out)
@@ -226,7 +243,8 @@ def latest_block() -> str:
     if g:
         lines.append("<p>Gaps on record, permanent: " + ", ".join(_esc(x.isoformat()) for x in g) + ".</p>")
     else:
-        lines.append(f"<p>{len(days)} issue days since {days[0].isoformat()}, no gaps.</p>")
+        n = len(days)
+        lines.append(f"<p>{n} issue day{'s' if n != 1 else ''} since {days[0].isoformat()}, no gaps.</p>")
     drift = None
     for back in range(config.FINAL_LAG_DAYS, config.FINAL_LAG_DAYS + 5):
         drift = revision_drift(date.today() - timedelta(days=back))
@@ -240,7 +258,7 @@ def latest_block() -> str:
 def method_block() -> str:
     rules = ", ".join(f"{t}: {r}" for t, r in config.MODEL_RULE.items())
     return f"""
-<p>Every day at about {config.ISSUE_HOUR_UTC:02d}:40 UTC, before the day-ahead market closes at 12:00 CET, a scheduled job downloads the latest actuals from the ENTSO-E transparency platform, writes a forecast for every hour of the next seven delivery days, commits it to the public repository and anchors its hash in the Bitcoin blockchain with OpenTimestamps. The next day it downloads what happened, scores every source over the same hours, and publishes the score next to the forecast. Seven days later it scores again with the revised actuals, in a second file; nothing is overwritten.</p>
+<p>Every day from {config.ISSUE_HOUR_UTC:02d}:17 UTC, before the day-ahead market closes at 12:00 Central European time (CET in winter, CEST in summer), a scheduled job downloads the latest actuals from the ENTSO-E transparency platform, writes a forecast for every hour of the next seven delivery days, commits it to the public repository and anchors its hash in the Bitcoin blockchain with OpenTimestamps. The next day it downloads what happened, scores every source over the same hours, and publishes the score next to the forecast. Seven days later it scores again with the revised actuals, in a second file; nothing is overwritten.</p>
 <p>The operator's own day-ahead forecast is polled through the day and stored with the time it was first seen complete, because the regulation sets a deadline for publishing it, not a time, and a comparison against a number of unknown availability is not a comparison.</p>
 <p>Zones: DE-LU and ES. Targets: wind, solar, load and day-ahead price for DE-LU; wind and solar for ES. Price has no official forecast and is a dated series only. Phase 1 model <code>{config.MODEL_VERSION}</code> is deliberately naive ({_esc(rules)}); persistence and weekly baselines are always published beside it. The scarce thing is the dated series, and the method improves forward.</p>
 <p>Wind and solar are scored as nMAE, a share of installed capacity; solar over daylight hours only. Load as MAPE. Everything is hourly means of the platform's quarter-hour values, in UTC; delivery days follow the CET/CEST calendar and have 23, 24 or 25 hours when the clocks change.</p>

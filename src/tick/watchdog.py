@@ -16,10 +16,11 @@ from __future__ import annotations
 
 from datetime import date, datetime, timedelta
 
-from . import config
+from . import config, store
 from .timeutil import utc_now
 
-GRACE_HOURS = 4  # after the issue slot before today's absence counts
+GRACE_HOURS = 6  # after the first issue slot before today's absence counts; covers the retries
+LATE_WINDOW_DAYS = 14
 
 
 def issue_days() -> list[date]:
@@ -56,6 +57,20 @@ def check(now: datetime | None = None, simulate: bool = False) -> tuple[list[str
         problems.append(f"no forecast for {age_h:.0f} hours: last issue day was {latest.isoformat()}")
     elif latest < now.date() and now.hour >= config.ISSUE_HOUR_UTC + GRACE_HOURS:
         problems.append(f"today's forecast ({now.date().isoformat()}) is missing past its slot")
+
+    # A file that exists but was issued after the day-ahead gate closure is
+    # on record as late; it is also the sign that the schedule is slipping,
+    # so today's counts as a problem and the recent history as a note.
+    late = []
+    for d in days[-LATE_WINDOW_DAYS:]:
+        doc = store.read(store.forecast_path(d.isoformat())) or {}
+        if doc.get("before_gate_closure") is False:
+            late.append((d, doc.get("issued_at"), doc.get("gate_closure")))
+    if late and late[-1][0] == now.date():
+        d, issued, gate = late[-1]
+        problems.append(f"today's forecast was issued after gate closure (issued {issued}, gate {gate})")
+    if late:
+        notes.append(f"{len(late)} of the last {min(len(days), LATE_WINDOW_DAYS)} issue days were after gate closure: " + ", ".join(d.isoformat() for d, _, _ in late))
     g = gaps(days)
     if g:
         notes.append("permanent gaps on record: " + ", ".join(d.isoformat() for d in g))
