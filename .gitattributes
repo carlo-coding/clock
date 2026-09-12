@@ -1,0 +1,4 @@
+# The timestamp proofs hash the exact bytes of each file, so line endings
+# must be the same on every machine that checks out the record.
+* text=auto eol=lf
+*.ots binary

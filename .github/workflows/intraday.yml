@@ -1,0 +1,46 @@
+# Hourly intraday record: last actual, persistence for the next 1, 2, 4 and
+# 8 hours, and the operator's intraday forecast for those hours. Appended,
+# never edited. Silent on the front page until it has enough to say.
+
+name: intraday
+
+on:
+  schedule:
+    - cron: "25 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: record
+  cancel-in-progress: false
+
+jobs:
+  append:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - name: Append
+        env:
+          ENTSOE_API: ${{ secrets.ENTSOE_API }}
+        run: uv run tick intraday
+      - name: Commit
+        run: |
+          git config user.name "clock"
+          git config user.email "clock@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then
+            echo "nothing new"
+          else
+            git commit -m "record: $(date -u +%FT%H:%MZ) intraday"
+            for i in 1 2 3 4 5; do
+              git pull --rebase && git push && break
+              echo "push failed, retry $i"; sleep 20
+            done
+          fi

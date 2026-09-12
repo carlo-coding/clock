@@ -1,0 +1,78 @@
+# The clock. Runs once a day, before the day-ahead market closes (12:00 CET),
+# and publishes: yesterday's actuals and scores, today's forecast for the next
+# seven delivery days, the OpenTimestamps proofs, and the page.
+#
+# 07:40 UTC is 09:40 CET in winter and 08:40 CEST in summer; both are before
+# gate closure with margin for the queue delays GitHub adds to cron jobs.
+# The forecast file records whether it was issued before gate closure.
+
+name: daily
+
+on:
+  schedule:
+    - cron: "40 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: record
+  cancel-in-progress: false
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    outputs:
+      sha: ${{ steps.push.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Install
+        run: uv sync --frozen
+
+      - name: Daily run
+        env:
+          ENTSOE_API: ${{ secrets.ENTSOE_API }}
+        run: uv run tick daily
+
+      - name: Commit the record
+        id: push
+        run: |
+          git config user.name "clock"
+          git config user.email "clock@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then
+            echo "nothing new to commit"
+          else
+            git commit -m "record: $(date -u +%F) daily"
+            for i in 1 2 3 4 5; do
+              git pull --rebase && git push && break
+              echo "push failed, retry $i"; sleep 20
+            done
+          fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Page artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  publish:
+    needs: tick
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

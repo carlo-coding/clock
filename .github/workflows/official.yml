@@ -1,0 +1,46 @@
+# Polls the platform for tomorrow's official day-ahead forecast and stores it
+# with the time it was first seen complete. The regulation gives the TSOs
+# until 18:00 CET; when they actually publish is something this job measures.
+
+name: official
+
+on:
+  schedule:
+    - cron: "5 6-22/2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: record
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - name: Capture
+        env:
+          ENTSOE_API: ${{ secrets.ENTSOE_API }}
+        run: uv run tick official
+      - name: Commit if anything appeared
+        run: |
+          git config user.name "clock"
+          git config user.email "clock@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then
+            echo "nothing new"
+          else
+            git commit -m "record: $(date -u +%FT%H:%MZ) official forecast"
+            for i in 1 2 3 4 5; do
+              git pull --rebase && git push && break
+              echo "push failed, retry $i"; sleep 20
+            done
+          fi

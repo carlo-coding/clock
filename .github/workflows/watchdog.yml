@@ -1,0 +1,51 @@
+# The dead man's switch. Independent of the jobs that write. Fails if the
+# newest forecast is older than 48 hours or today's is missing past its
+# slot, and opens an issue so that the failure reaches the inbox even if
+# Actions notifications are off. Run it by hand with simulate=true to prove
+# the alert fires: if it does not, the clock is not finished.
+
+name: watchdog
+
+on:
+  schedule:
+    - cron: "0 13 * * *"
+  workflow_dispatch:
+    inputs:
+      simulate:
+        description: "Force a failure to test the alert"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen
+      - name: Check the series
+        id: check
+        run: |
+          set +e
+          if [ "${{ inputs.simulate }}" = "true" ]; then
+            uv run tick watchdog --simulate | tee report.txt
+          else
+            uv run tick watchdog | tee report.txt
+          fi
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+      - name: Open an issue if the series stopped
+        if: steps.check.outputs.code != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Series stopped: $(date -u +%F)"
+          body="$(printf 'The watchdog found a problem at %s.\n\n```\n%s\n```\n\nRun: %s' "$(date -u +%FT%H:%MZ)" "$(cat report.txt)" "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}")"
+          gh issue create --title "$title" --body "$body" --label gap || gh issue create --title "$title" --body "$body"
+      - name: Fail so that GitHub sends the notification
+        if: steps.check.outputs.code != '0'
+        run: exit 1

@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.venv
+.pytest_cache/
+
+# Local secrets. The token lives in the ENTSOE_API repository secret on GitHub.
+.env
+
+# Generated site. It is rebuilt from data/ on every run and deployed by Actions.
+site/
