@@ -30,14 +30,20 @@ jobs:
       - run: uv sync --frozen
       - name: Check the series
         id: check
+        shell: bash
         run: |
+          # No pipe here on purpose: the first version piped through tee and
+          # recorded tee's exit code, so the simulated gap passed in green.
           set +e
           if [ "${{ inputs.simulate }}" = "true" ]; then
-            uv run tick watchdog --simulate | tee report.txt
+            uv run tick watchdog --simulate > report.txt 2>&1
           else
-            uv run tick watchdog | tee report.txt
+            uv run tick watchdog > report.txt 2>&1
           fi
-          echo "code=$?" >> "$GITHUB_OUTPUT"
+          code=$?
+          cat report.txt
+          echo "exit code $code"
+          echo "code=$code" >> "$GITHUB_OUTPUT"
       - name: Open an issue if the series stopped
         if: steps.check.outputs.code != '0'
         env:
