@@ -32,8 +32,8 @@ jobs:
         run: uv run tick official
       - name: Commit if anything appeared
         run: |
-          git config user.name "clock"
-          git config user.email "clock@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data
           if git diff --cached --quiet; then
             echo "nothing new"
