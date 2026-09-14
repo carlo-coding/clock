@@ -34,3 +34,12 @@ def test_issue_is_idempotent_and_never_touches_an_existing_file(tmp_path, monkey
     got, written = forecast.issue(client=None, now=now, history={"DE-LU": {}, "ES": {}})
     assert not written
     assert path.read_text() == before
+
+
+def test_issue_refuses_the_late_evening_window(tmp_path, monkeypatch):
+    """At 23:14 UTC the local day is already tomorrow; a file named today with tomorrow's day-ahead would be wrong."""
+    monkeypatch.setattr(config, "FORECASTS", tmp_path)
+    now = parse_iso("2026-09-12T23:14:00Z")
+    got, written = forecast.issue(client=None, now=now, history={"DE-LU": {}, "ES": {}})
+    assert not written
+    assert not store.forecast_path("2026-09-12").exists()

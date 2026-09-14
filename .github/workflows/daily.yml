@@ -3,17 +3,23 @@
 # scores, today's forecast for the next seven delivery days, the
 # OpenTimestamps proofs, and the page.
 #
-# GitHub queues cron jobs under load and the delay can be hours: on
-# 2026-09-12 the 07:40 slot ran at 11:42, after gate closure. So the first
-# slot is 04:17 UTC and there are three hourly retries. Once the day's
-# forecast file exists the run touches nothing, so the retries are free.
-# The forecast file records whether it was issued before gate closure and
-# the watchdog alerts if it was not.
+# GitHub queues cron jobs under load and the delay runs to hours: on
+# 2026-09-12 the 07:40 slot ran at 11:42, after gate closure, and on
+# 2026-09-13 all four slots from 04:17 ran five hours late, the first at
+# 09:32, 27 minutes before the gate. So the slots start at 00:17 UTC, one
+# per hour until 07:17, and every other scheduled workflow also issues the
+# day's forecast if it is missing. Once the file exists a run touches
+# nothing, so the retries are free. The file records whether it was issued
+# before gate closure and the watchdog alerts if it was not.
 
 name: daily
 
 on:
   schedule:
+    - cron: "17 0 * * *"
+    - cron: "17 1 * * *"
+    - cron: "17 2 * * *"
+    - cron: "17 3 * * *"
     - cron: "17 4 * * *"
     - cron: "17 5 * * *"
     - cron: "17 6 * * *"

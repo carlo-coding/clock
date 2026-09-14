@@ -103,6 +103,11 @@ def issue(client: Client | None = None, now: datetime | None = None, history: di
     path = store.forecast_path(now.date().isoformat())
     if path.exists():
         return str(path), False
+    # Between 22:00 and 24:00 UTC the local day in both zones is already the
+    # next one, and a file issued then would carry the previous UTC date with
+    # the wrong delivery day. The window for issuing is the UTC day itself.
+    if any(local_date(now, z) != now.date() for z in config.ZONES):
+        return str(path), False
     if history is None:
         client = client or Client()
         history = {zone: fetch_history(client, zone, config.HISTORY_DAYS, now) for zone in config.ZONES}

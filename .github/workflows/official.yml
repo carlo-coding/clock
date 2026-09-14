@@ -26,6 +26,10 @@ jobs:
         with:
           enable-cache: true
       - run: uv sync --frozen
+      - name: Issue today's forecast if the daily job has not yet
+        env:
+          ENTSOE_API: ${{ secrets.ENTSOE_API }}
+        run: uv run tick issue
       - name: Capture
         env:
           ENTSOE_API: ${{ secrets.ENTSOE_API }}

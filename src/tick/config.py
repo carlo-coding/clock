@@ -71,10 +71,11 @@ UNITS = {"wind": "MW", "solar": "MW", "load": "MW", "price": "EUR/MWh"}
 # met. A late issue is still published: a flagged late file beats a hole.
 #
 # GitHub does not honour cron times under load: on the first day the 07:40
-# slot ran at 11:42, after gate closure. So the slot is early and the
-# workflow retries hourly until 07:17; every retry is a no-op once the day's
-# file exists. Six hours of slack before the summer gate.
-ISSUE_HOUR_UTC = 4
+# slot ran at 11:42, after gate closure; on the second, every slot ran five
+# hours late. So the slots run hourly from 00:17 to 07:17, every scheduled
+# workflow issues the day's file if it is missing, and all of that is a
+# no-op once the file exists. Ten hours of slack before the summer gate.
+ISSUE_HOUR_UTC = 0
 GATE_CLOSURE_LOCAL_HOUR = 12  # in Europe/Berlin, converted per day
 
 # Lead times in days. Lead 1 is day-ahead, the headline. Leads 2 to 7 are

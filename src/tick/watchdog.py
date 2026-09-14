@@ -19,7 +19,7 @@ from datetime import date, datetime, timedelta
 from . import config, store
 from .timeutil import utc_now
 
-GRACE_HOURS = 6  # after the first issue slot before today's absence counts; covers the retries
+GRACE_HOURS = 10  # after the first issue slot before today's absence counts: the summer gate is at 10:00 UTC
 LATE_WINDOW_DAYS = 14
 
 

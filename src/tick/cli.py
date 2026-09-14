@@ -33,6 +33,14 @@ def cmd_daily(args) -> int:
         for back in range(1, config.HISTORY_DAYS):
             day = today - timedelta(days=back)
             final = back >= config.FINAL_LAG_DAYS
+            # Yesterday's preliminary file is written once, so an early run
+            # (the first slot is 00:17 UTC, two hours after the local day
+            # ends) waits for the platform to complete the day; a later
+            # retry writes it. From two days back, what there is, is what
+            # there is.
+            if back == 1 and not all(actuals.is_complete(s, day, zone) for s in history[zone].values()):
+                print(f"  actuals {zone} {day} preliminary: not complete yet, left for a later run")
+                continue
             if actuals.store_day(zone, day, history[zone], final=final, fetched_at=now):
                 print(f"  actuals {zone} {day} {'final' if final else 'preliminary'}")
         cap = actuals.capacity(client, zone, now.year)
@@ -68,8 +76,16 @@ def cmd_daily(args) -> int:
 
 
 def cmd_issue(args) -> int:
+    """Issue today's forecast if it does not exist, and stamp it right away.
+
+    Every scheduled job runs this first, so the day's file goes out on the
+    first run that lands in the window, whichever workflow it belongs to."""
     path, written = forecast.issue()
-    print(f"{_rel(path)} {'issued' if written else 'already issued'}")
+    if written:
+        stamp.stamp([Path(path)])
+        print(f"{_rel(path)} issued and stamped")
+    else:
+        print(f"{_rel(path)} {'already issued' if Path(path).exists() else 'outside the issue window, nothing done'}")
     return 0
 
 
