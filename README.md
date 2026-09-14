@@ -85,6 +85,10 @@ An automated series does not fail loudly; it stops. So:
 - **gaps are permanent and listed on the page**. A missed day is never backfilled: a forecast written after the fact is not a forecast;
 - the platform's token, the Actions schedule and the domain are checked by hand every quarter.
 
+## History
+
+The commit history is never rewritten, with one exception, recorded here so that nobody has to discover it. On 2026-09-14 the author and committer of the nine automated commits made between 2026-09-12 10:36 UTC and 2026-09-13 00:07 UTC were changed from a misconfigured identity (`clock@users.noreply.github.com`, an address that happens to belong to an unrelated GitHub user) to `github-actions[bot]`. File contents, commit dates and commit messages were preserved and verified identical before the push; the timestamp proofs, which hash file contents, were unaffected. The repository had no forks or watchers at the time.
+
 ## Running it
 
 ```
