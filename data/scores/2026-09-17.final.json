@@ -1,0 +1,1414 @@
+{
+  "code": "39f4272f25100a4b4f8299e971a37371008b2abc",
+  "delivery_day": "2026-09-17",
+  "schema": 1,
+  "scored_at": "2026-09-24T05:01:18Z",
+  "stage": "final",
+  "zones": {
+    "DE-LU": {
+      "intraday": {
+        "load": {
+          "1": {
+            "clock": {
+              "bias": 282.929,
+              "mae": 2124.338,
+              "mape_pct": 3.785,
+              "n": 5,
+              "rmse": 2404.067
+            }
+          },
+          "2": {
+            "clock": {
+              "bias": 1915.091,
+              "mae": 4160.713,
+              "mape_pct": 7.793,
+              "n": 6,
+              "rmse": 4830.321
+            }
+          },
+          "4": {
+            "clock": {
+              "bias": 1535.762,
+              "mae": 6001.688,
+              "mape_pct": 11.398,
+              "n": 5,
+              "rmse": 6216.656
+            }
+          },
+          "8": {
+            "clock": {
+              "bias": -348.622,
+              "mae": 8045.98,
+              "mape_pct": 15.065,
+              "n": 5,
+              "rmse": 10467.594
+            }
+          }
+        },
+        "solar": {
+          "1": {
+            "clock": {
+              "bias": -898.07,
+              "mae": 3360.396,
+              "n": 5,
+              "nmae_pct": 3.23,
+              "rmse": 5248.279
+            },
+            "clock_on_official_hours": {
+              "bias": -1122.571,
+              "mae": 4200.479,
+              "n": 4,
+              "nmae_pct": 4.038,
+              "rmse": 5867.754
+            },
+            "official_intraday": {
+              "bias": -528.853,
+              "mae": 559.333,
+              "n": 4,
+              "nmae_pct": 0.538,
+              "rmse": 771.692
+            },
+            "skill_vs_official_intraday": -6.5098
+          },
+          "2": {
+            "clock": {
+              "bias": -1950.769,
+              "mae": 5724.449,
+              "n": 6,
+              "nmae_pct": 5.503,
+              "rmse": 9961.712
+            },
+            "clock_on_official_hours": {
+              "bias": -2926.11,
+              "mae": 8586.631,
+              "n": 4,
+              "nmae_pct": 8.254,
+              "rmse": 12200.555
+            },
+            "official_intraday": {
+              "bias": -1015.469,
+              "mae": 1015.469,
+              "n": 4,
+              "nmae_pct": 0.976,
+              "rmse": 1543.428
+            },
+            "skill_vs_official_intraday": -7.4558
+          },
+          "4": {
+            "clock": {
+              "bias": -1701.61,
+              "mae": 12793.245,
+              "n": 5,
+              "nmae_pct": 12.298,
+              "rmse": 19278.911
+            },
+            "clock_on_official_hours": {
+              "bias": -2835.974,
+              "mae": 21322.032,
+              "n": 3,
+              "nmae_pct": 20.496,
+              "rmse": 24888.967
+            },
+            "official_intraday": {
+              "bias": -970.276,
+              "mae": 970.276,
+              "n": 3,
+              "nmae_pct": 0.933,
+              "rmse": 1189.151
+            },
+            "skill_vs_official_intraday": -20.9752
+          },
+          "8": {
+            "clock": {
+              "bias": -3245.303,
+              "mae": 17916.185,
+              "n": 5,
+              "nmae_pct": 17.222,
+              "rmse": 23371.838
+            },
+            "clock_on_official_hours": {
+              "bias": 3575.161,
+              "mae": 32721.026,
+              "n": 2,
+              "nmae_pct": 31.454,
+              "rmse": 32915.761
+            },
+            "official_intraday": {
+              "bias": -677.739,
+              "mae": 677.739,
+              "n": 2,
+              "nmae_pct": 0.651,
+              "rmse": 958.316
+            },
+            "skill_vs_official_intraday": -47.2797
+          }
+        },
+        "wind": {
+          "1": {
+            "clock": {
+              "bias": 389.578,
+              "mae": 573.036,
+              "n": 5,
+              "nmae_pct": 0.743,
+              "rmse": 841.468
+            },
+            "clock_on_official_hours": {
+              "bias": 310.311,
+              "mae": 539.634,
+              "n": 4,
+              "nmae_pct": 0.699,
+              "rmse": 871.922
+            },
+            "official_intraday": {
+              "bias": 964.202,
+              "mae": 1642.434,
+              "n": 4,
+              "nmae_pct": 2.129,
+              "rmse": 2639.189
+            },
+            "skill_vs_official_intraday": 0.6714
+          },
+          "2": {
+            "clock": {
+              "bias": 174.666,
+              "mae": 1307.944,
+              "n": 6,
+              "nmae_pct": 1.695,
+              "rmse": 1377.682
+            },
+            "clock_on_official_hours": {
+              "bias": 224.238,
+              "mae": 1469.457,
+              "n": 4,
+              "nmae_pct": 1.905,
+              "rmse": 1535.945
+            },
+            "official_intraday": {
+              "bias": 1120.441,
+              "mae": 1702.286,
+              "n": 4,
+              "nmae_pct": 2.206,
+              "rmse": 2341.51
+            },
+            "skill_vs_official_intraday": 0.1368
+          },
+          "4": {
+            "clock": {
+              "bias": -1115.186,
+              "mae": 1125.843,
+              "n": 5,
+              "nmae_pct": 1.459,
+              "rmse": 1461.924
+            },
+            "clock_on_official_hours": {
+              "bias": -1505.194,
+              "mae": 1505.194,
+              "n": 3,
+              "nmae_pct": 1.951,
+              "rmse": 1779.873
+            },
+            "official_intraday": {
+              "bias": 1309.823,
+              "mae": 1479.694,
+              "n": 3,
+              "nmae_pct": 1.918,
+              "rmse": 1800.087
+            },
+            "skill_vs_official_intraday": -0.0172
+          },
+          "8": {
+            "clock": {
+              "bias": -3360.579,
+              "mae": 3360.579,
+              "n": 5,
+              "nmae_pct": 4.356,
+              "rmse": 3512.307
+            },
+            "clock_on_official_hours": {
+              "bias": -4139.396,
+              "mae": 4139.396,
+              "n": 2,
+              "nmae_pct": 5.365,
+              "rmse": 4252.426
+            },
+            "official_intraday": {
+              "bias": 1557.73,
+              "mae": 2890.867,
+              "n": 2,
+              "nmae_pct": 3.747,
+              "rmse": 3283.845
+            },
+            "skill_vs_official_intraday": -0.4319
+          }
+        }
+      },
+      "load": {
+        "actuals_complete": true,
+        "actuals_fetched_at": "2026-09-24T05:01:18Z",
+        "capacity_mw": null,
+        "daylight_only": false,
+        "leads": {
+          "1": {
+            "before_gate_closure": true,
+            "clock": {
+              "bias": -1274.677,
+              "mae": 1331.713,
+              "mape_pct": 2.428,
+              "n": 24,
+              "rmse": 1500.565
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-16T00:07:29Z",
+            "model": "naive-v1",
+            "official": {
+              "bias": -1312.185,
+              "mae": 1512.122,
+              "mape_pct": 2.884,
+              "n": 24,
+              "rmse": 1819.669
+            },
+            "official_complete": true,
+            "official_first_seen_at": "2026-09-16T08:38:16Z",
+            "persistence": {
+              "bias": 6.271,
+              "mae": 523.258,
+              "mape_pct": 0.97,
+              "n": 24,
+              "rmse": 634.239
+            },
+            "skill_vs_official": 0.1193,
+            "skill_vs_persistence": -1.545,
+            "skill_vs_weekly": 0.0,
+            "weekly": {
+              "bias": -1274.677,
+              "mae": 1331.713,
+              "mape_pct": 2.428,
+              "n": 24,
+              "rmse": 1500.565
+            }
+          },
+          "2": {
+            "clock": {
+              "bias": -1274.677,
+              "mae": 1331.713,
+              "mape_pct": 2.428,
+              "n": 24,
+              "rmse": 1500.565
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-15T00:27:37Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -1174.848,
+              "mae": 1656.561,
+              "mape_pct": 3.217,
+              "n": 24,
+              "rmse": 2186.48
+            },
+            "skill_vs_persistence": 0.1961,
+            "skill_vs_weekly": 0.0,
+            "weekly": {
+              "bias": -1274.677,
+              "mae": 1331.713,
+              "mape_pct": 2.428,
+              "n": 24,
+              "rmse": 1500.565
+            }
+          },
+          "3": {
+            "clock": {
+              "bias": -1274.677,
+              "mae": 1331.713,
+              "mape_pct": 2.428,
+              "n": 24,
+              "rmse": 1500.565
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-14T02:02:27Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -11266.316,
+              "mae": 11266.316,
+              "mape_pct": 20.051,
+              "n": 24,
+              "rmse": 11879.097
+            },
+            "skill_vs_persistence": 0.8818,
+            "skill_vs_weekly": 0.0,
+            "weekly": {
+              "bias": -1274.677,
+              "mae": 1331.713,
+              "mape_pct": 2.428,
+              "n": 24,
+              "rmse": 1500.565
+            }
+          },
+          "4": {
+            "clock": {
+              "bias": -1274.677,
+              "mae": 1331.713,
+              "mape_pct": 2.428,
+              "n": 24,
+              "rmse": 1500.565
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-13T09:32:51Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -9746.259,
+              "mae": 9746.259,
+              "mape_pct": 17.159,
+              "n": 24,
+              "rmse": 10195.623
+            },
+            "skill_vs_persistence": 0.8634,
+            "skill_vs_weekly": 0.0,
+            "weekly": {
+              "bias": -1274.677,
+              "mae": 1331.713,
+              "mape_pct": 2.428,
+              "n": 24,
+              "rmse": 1500.565
+            }
+          },
+          "5": {
+            "clock": {
+              "bias": -1274.677,
+              "mae": 1331.713,
+              "mape_pct": 2.428,
+              "n": 24,
+              "rmse": 1500.565
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-12T05:28:41Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -1703.605,
+              "mae": 2028.139,
+              "mape_pct": 3.597,
+              "n": 24,
+              "rmse": 2534.547
+            },
+            "skill_vs_persistence": 0.3434,
+            "skill_vs_weekly": 0.0,
+            "weekly": {
+              "bias": -1274.677,
+              "mae": 1331.713,
+              "mape_pct": 2.428,
+              "n": 24,
+              "rmse": 1500.565
+            }
+          }
+        },
+        "unit": "MW"
+      },
+      "price": {
+        "actuals_complete": true,
+        "actuals_fetched_at": "2026-09-24T05:01:18Z",
+        "capacity_mw": null,
+        "daylight_only": false,
+        "leads": {
+          "1": {
+            "before_gate_closure": true,
+            "clock": {
+              "bias": 48.937,
+              "mae": 52.624,
+              "n": 24,
+              "rmse": 78.946
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-16T00:07:29Z",
+            "model": "naive-v1",
+            "official": null,
+            "official_note": "no official forecast exists for price",
+            "persistence": {
+              "bias": 39.449,
+              "mae": 40.029,
+              "n": 24,
+              "rmse": 53.39
+            },
+            "skill_vs_persistence": -0.3146,
+            "skill_vs_weekly": 0.0,
+            "weekly": {
+              "bias": 48.937,
+              "mae": 52.624,
+              "n": 24,
+              "rmse": 78.946
+            }
+          },
+          "2": {
+            "clock": {
+              "bias": 48.937,
+              "mae": 52.624,
+              "n": 24,
+              "rmse": 78.946
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-15T00:27:37Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": 37.184,
+              "mae": 37.184,
+              "n": 24,
+              "rmse": 42.625
+            },
+            "skill_vs_persistence": -0.4152,
+            "skill_vs_weekly": 0.0,
+            "weekly": {
+              "bias": 48.937,
+              "mae": 52.624,
+              "n": 24,
+              "rmse": 78.946
+            }
+          },
+          "3": {
+            "clock": {
+              "bias": 48.937,
+              "mae": 52.624,
+              "n": 24,
+              "rmse": 78.946
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-14T02:02:27Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": 113.659,
+              "mae": 113.659,
+              "n": 24,
+              "rmse": 153.592
+            },
+            "skill_vs_persistence": 0.537,
+            "skill_vs_weekly": 0.0,
+            "weekly": {
+              "bias": 48.937,
+              "mae": 52.624,
+              "n": 24,
+              "rmse": 78.946
+            }
+          },
+          "4": {
+            "clock": {
+              "bias": 48.937,
+              "mae": 52.624,
+              "n": 24,
+              "rmse": 78.946
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-13T09:32:51Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -4.927,
+              "mae": 17.601,
+              "n": 24,
+              "rmse": 20.714
+            },
+            "skill_vs_persistence": -1.9898,
+            "skill_vs_weekly": 0.0,
+            "weekly": {
+              "bias": 48.937,
+              "mae": 52.624,
+              "n": 24,
+              "rmse": 78.946
+            }
+          },
+          "5": {
+            "clock": {
+              "bias": 48.937,
+              "mae": 52.624,
+              "n": 24,
+              "rmse": 78.946
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-12T05:28:41Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -4.927,
+              "mae": 17.601,
+              "n": 24,
+              "rmse": 20.714
+            },
+            "skill_vs_persistence": -1.9898,
+            "skill_vs_weekly": 0.0,
+            "weekly": {
+              "bias": 48.937,
+              "mae": 52.624,
+              "n": 24,
+              "rmse": 78.946
+            }
+          }
+        },
+        "unit": "EUR/MWh"
+      },
+      "solar": {
+        "actuals_complete": true,
+        "actuals_fetched_at": "2026-09-24T05:01:18Z",
+        "capacity_mw": 104029.51,
+        "daylight_only": true,
+        "leads": {
+          "1": {
+            "before_gate_closure": true,
+            "clock": {
+              "bias": -1183.538,
+              "mae": 1237.009,
+              "n": 24,
+              "nmae_pct": 1.189,
+              "rmse": 2336.054
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-16T00:07:29Z",
+            "model": "naive-v1",
+            "official": {
+              "bias": -723.663,
+              "mae": 750.764,
+              "n": 24,
+              "nmae_pct": 0.722,
+              "rmse": 1335.117
+            },
+            "official_complete": true,
+            "official_first_seen_at": "2026-09-16T16:42:44Z",
+            "persistence": {
+              "bias": 2684.522,
+              "mae": 2684.624,
+              "n": 24,
+              "nmae_pct": 2.581,
+              "rmse": 4658.82
+            },
+            "skill_vs_official": -0.6477,
+            "skill_vs_persistence": 0.5392,
+            "skill_vs_weekly": -0.4542,
+            "weekly": {
+              "bias": 551.313,
+              "mae": 850.658,
+              "n": 24,
+              "nmae_pct": 0.818,
+              "rmse": 1314.639
+            }
+          },
+          "2": {
+            "clock": {
+              "bias": -2011.964,
+              "mae": 2060.431,
+              "n": 24,
+              "nmae_pct": 1.981,
+              "rmse": 3469.116
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-15T00:27:37Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -431.738,
+              "mae": 1676.419,
+              "n": 24,
+              "nmae_pct": 1.611,
+              "rmse": 2902.213
+            },
+            "skill_vs_persistence": -0.2291,
+            "skill_vs_weekly": -1.4222,
+            "weekly": {
+              "bias": 551.313,
+              "mae": 850.658,
+              "n": 24,
+              "nmae_pct": 0.818,
+              "rmse": 1314.639
+            }
+          },
+          "3": {
+            "clock": {
+              "bias": -1564.411,
+              "mae": 1608.704,
+              "n": 24,
+              "nmae_pct": 1.546,
+              "rmse": 2672.138
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-14T02:02:27Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -5960.714,
+              "mae": 5965.433,
+              "n": 24,
+              "nmae_pct": 5.734,
+              "rmse": 9350.225
+            },
+            "skill_vs_persistence": 0.7303,
+            "skill_vs_weekly": -0.98,
+            "weekly": {
+              "bias": 580.073,
+              "mae": 812.495,
+              "n": 24,
+              "nmae_pct": 0.781,
+              "rmse": 1254.929
+            }
+          },
+          "4": {
+            "clock": {
+              "bias": 593.29,
+              "mae": 1026.809,
+              "n": 24,
+              "nmae_pct": 0.987,
+              "rmse": 1608.665
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-13T09:32:51Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": 288.944,
+              "mae": 804.858,
+              "n": 24,
+              "nmae_pct": 0.774,
+              "rmse": 1373.318
+            },
+            "skill_vs_persistence": -0.2758,
+            "skill_vs_weekly": -0.2638,
+            "weekly": {
+              "bias": 580.073,
+              "mae": 812.495,
+              "n": 24,
+              "nmae_pct": 0.781,
+              "rmse": 1254.929
+            }
+          },
+          "5": {
+            "clock": {
+              "bias": -538.584,
+              "mae": 792.295,
+              "n": 24,
+              "nmae_pct": 0.762,
+              "rmse": 1534.12
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-12T05:28:41Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": 775.274,
+              "mae": 1462.334,
+              "n": 24,
+              "nmae_pct": 1.406,
+              "rmse": 2334.373
+            },
+            "skill_vs_persistence": 0.4582,
+            "skill_vs_weekly": 0.0249,
+            "weekly": {
+              "bias": 580.073,
+              "mae": 812.495,
+              "n": 24,
+              "nmae_pct": 0.781,
+              "rmse": 1254.929
+            }
+          }
+        },
+        "unit": "MW"
+      },
+      "wind": {
+        "actuals_complete": true,
+        "actuals_fetched_at": "2026-09-24T05:01:18Z",
+        "capacity_mw": 77149.34999999999,
+        "daylight_only": false,
+        "leads": {
+          "1": {
+            "before_gate_closure": true,
+            "clock": {
+              "bias": -10290.939,
+              "mae": 10290.939,
+              "n": 24,
+              "nmae_pct": 13.339,
+              "rmse": 10682.614
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-16T00:07:29Z",
+            "model": "naive-v1",
+            "official": {
+              "bias": 405.746,
+              "mae": 1850.588,
+              "n": 24,
+              "nmae_pct": 2.399,
+              "rmse": 2479.824
+            },
+            "official_complete": true,
+            "official_first_seen_at": "2026-09-16T16:42:44Z",
+            "persistence": {
+              "bias": -10290.939,
+              "mae": 10290.939,
+              "n": 24,
+              "nmae_pct": 13.339,
+              "rmse": 10682.614
+            },
+            "skill_vs_official": -4.5609,
+            "skill_vs_persistence": 0.0,
+            "skill_vs_weekly": 0.2052,
+            "weekly": {
+              "bias": -11568.121,
+              "mae": 12948.356,
+              "n": 24,
+              "nmae_pct": 16.783,
+              "rmse": 14714.943
+            }
+          },
+          "2": {
+            "clock": {
+              "bias": -17075.796,
+              "mae": 17075.796,
+              "n": 24,
+              "nmae_pct": 22.133,
+              "rmse": 17813.502
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-15T00:27:37Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -17075.796,
+              "mae": 17075.796,
+              "n": 24,
+              "nmae_pct": 22.133,
+              "rmse": 17813.502
+            },
+            "skill_vs_persistence": 0.0,
+            "skill_vs_weekly": -0.3188,
+            "weekly": {
+              "bias": -11568.121,
+              "mae": 12948.356,
+              "n": 24,
+              "nmae_pct": 16.783,
+              "rmse": 14714.943
+            }
+          },
+          "3": {
+            "clock": {
+              "bias": -8557.868,
+              "mae": 8557.868,
+              "n": 24,
+              "nmae_pct": 11.093,
+              "rmse": 10127.549
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-14T02:02:27Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -8557.868,
+              "mae": 8557.868,
+              "n": 24,
+              "nmae_pct": 11.093,
+              "rmse": 10127.549
+            },
+            "skill_vs_persistence": 0.0,
+            "skill_vs_weekly": 0.3391,
+            "weekly": {
+              "bias": -11568.121,
+              "mae": 12948.356,
+              "n": 24,
+              "nmae_pct": 16.783,
+              "rmse": 14714.943
+            }
+          },
+          "4": {
+            "clock": {
+              "bias": -13725.516,
+              "mae": 13725.516,
+              "n": 24,
+              "nmae_pct": 17.791,
+              "rmse": 13817.704
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-13T09:32:51Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -13725.516,
+              "mae": 13725.516,
+              "n": 24,
+              "nmae_pct": 17.791,
+              "rmse": 13817.704
+            },
+            "skill_vs_persistence": 0.0,
+            "skill_vs_weekly": -0.06,
+            "weekly": {
+              "bias": -11568.121,
+              "mae": 12948.356,
+              "n": 24,
+              "nmae_pct": 16.783,
+              "rmse": 14714.943
+            }
+          },
+          "5": {
+            "clock": {
+              "bias": -12809.9,
+              "mae": 12809.9,
+              "n": 24,
+              "nmae_pct": 16.604,
+              "rmse": 13927.364
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-12T05:28:41Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -12809.9,
+              "mae": 12809.9,
+              "n": 24,
+              "nmae_pct": 16.604,
+              "rmse": 13927.364
+            },
+            "skill_vs_persistence": 0.0,
+            "skill_vs_weekly": 0.0107,
+            "weekly": {
+              "bias": -11568.121,
+              "mae": 12948.356,
+              "n": 24,
+              "nmae_pct": 16.783,
+              "rmse": 14714.943
+            }
+          }
+        },
+        "unit": "MW"
+      }
+    },
+    "ES": {
+      "intraday": {
+        "solar": {
+          "1": {
+            "clock": {
+              "bias": 2128.667,
+              "mae": 2818.4,
+              "n": 5,
+              "nmae_pct": 6.802,
+              "rmse": 5307.975
+            },
+            "clock_on_official_hours": {
+              "bias": 2651.583,
+              "mae": 3513.75,
+              "n": 4,
+              "nmae_pct": 8.48,
+              "rmse": 5934.468
+            },
+            "official_intraday": {
+              "bias": 743.75,
+              "mae": 837.0,
+              "n": 4,
+              "nmae_pct": 2.02,
+              "rmse": 992.507
+            },
+            "skill_vs_official_intraday": -3.198
+          },
+          "2": {
+            "clock": {
+              "bias": 1080.556,
+              "mae": 4742.667,
+              "n": 6,
+              "nmae_pct": 11.446,
+              "rmse": 8272.137
+            },
+            "clock_on_official_hours": {
+              "bias": 1575.083,
+              "mae": 7068.25,
+              "n": 4,
+              "nmae_pct": 17.059,
+              "rmse": 10131.049
+            },
+            "official_intraday": {
+              "bias": 173.188,
+              "mae": 271.312,
+              "n": 4,
+              "nmae_pct": 0.655,
+              "rmse": 349.252
+            },
+            "skill_vs_official_intraday": -25.0521
+          },
+          "4": {
+            "clock": {
+              "bias": -511.933,
+              "mae": 7684.6,
+              "n": 5,
+              "nmae_pct": 18.547,
+              "rmse": 12026.035
+            },
+            "clock_on_official_hours": {
+              "bias": -1012.556,
+              "mae": 12648.333,
+              "n": 3,
+              "nmae_pct": 30.527,
+              "rmse": 15524.299
+            },
+            "official_intraday": {
+              "bias": -708.833,
+              "mae": 1132.333,
+              "n": 3,
+              "nmae_pct": 2.733,
+              "rmse": 1535.17
+            },
+            "skill_vs_official_intraday": -10.1702
+          },
+          "8": {
+            "clock": {
+              "bias": -559.067,
+              "mae": 12667.467,
+              "n": 5,
+              "nmae_pct": 30.573,
+              "rmse": 15278.221
+            },
+            "clock_on_official_hours": {
+              "bias": -102.167,
+              "mae": 22324.167,
+              "n": 2,
+              "nmae_pct": 53.88,
+              "rmse": 22324.4
+            },
+            "official_intraday": {
+              "bias": 237.25,
+              "mae": 411.0,
+              "n": 2,
+              "nmae_pct": 0.992,
+              "rmse": 474.561
+            },
+            "skill_vs_official_intraday": -53.3167
+          }
+        },
+        "wind": {
+          "1": {
+            "clock": {
+              "bias": 232.6,
+              "mae": 643.4,
+              "n": 5,
+              "nmae_pct": 1.983,
+              "rmse": 722.488
+            },
+            "clock_on_official_hours": {
+              "bias": 148.0,
+              "mae": 661.5,
+              "n": 4,
+              "nmae_pct": 2.038,
+              "rmse": 755.629
+            },
+            "official_intraday": {
+              "bias": 1154.688,
+              "mae": 1154.688,
+              "n": 4,
+              "nmae_pct": 3.558,
+              "rmse": 1220.13
+            },
+            "skill_vs_official_intraday": 0.4271
+          },
+          "2": {
+            "clock": {
+              "bias": 407.667,
+              "mae": 1032.667,
+              "n": 6,
+              "nmae_pct": 3.182,
+              "rmse": 1115.725
+            },
+            "clock_on_official_hours": {
+              "bias": 19.75,
+              "mae": 957.25,
+              "n": 4,
+              "nmae_pct": 2.95,
+              "rmse": 1064.054
+            },
+            "official_intraday": {
+              "bias": 905.812,
+              "mae": 905.812,
+              "n": 4,
+              "nmae_pct": 2.791,
+              "rmse": 1089.145
+            },
+            "skill_vs_official_intraday": -0.0568
+          },
+          "4": {
+            "clock": {
+              "bias": 1034.2,
+              "mae": 2141.0,
+              "n": 5,
+              "nmae_pct": 6.598,
+              "rmse": 2340.816
+            },
+            "clock_on_official_hours": {
+              "bias": 105.333,
+              "mae": 1950.0,
+              "n": 3,
+              "nmae_pct": 6.009,
+              "rmse": 2234.317
+            },
+            "official_intraday": {
+              "bias": 924.833,
+              "mae": 956.167,
+              "n": 3,
+              "nmae_pct": 2.946,
+              "rmse": 1320.559
+            },
+            "skill_vs_official_intraday": -1.0394
+          },
+          "8": {
+            "clock": {
+              "bias": 2881.933,
+              "mae": 4255.133,
+              "n": 5,
+              "nmae_pct": 13.112,
+              "rmse": 4538.808
+            },
+            "clock_on_official_hours": {
+              "bias": 817.0,
+              "mae": 4250.0,
+              "n": 2,
+              "nmae_pct": 13.097,
+              "rmse": 4327.816
+            },
+            "official_intraday": {
+              "bias": 1311.375,
+              "mae": 1311.375,
+              "n": 2,
+              "nmae_pct": 4.041,
+              "rmse": 1350.24
+            },
+            "skill_vs_official_intraday": -2.2409
+          }
+        }
+      },
+      "solar": {
+        "actuals_complete": true,
+        "actuals_fetched_at": "2026-09-24T05:01:18Z",
+        "capacity_mw": 41433.4,
+        "daylight_only": true,
+        "leads": {
+          "1": {
+            "before_gate_closure": true,
+            "clock": {
+              "bias": 1740.444,
+              "mae": 1740.444,
+              "n": 24,
+              "nmae_pct": 4.201,
+              "rmse": 2487.144
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-16T00:07:29Z",
+            "model": "naive-v1",
+            "official": {
+              "bias": -278.75,
+              "mae": 617.375,
+              "n": 24,
+              "nmae_pct": 1.49,
+              "rmse": 991.919
+            },
+            "official_complete": true,
+            "official_first_seen_at": "2026-09-16T16:42:44Z",
+            "persistence": {
+              "bias": 2318.417,
+              "mae": 2318.917,
+              "n": 24,
+              "nmae_pct": 5.597,
+              "rmse": 3389.677
+            },
+            "skill_vs_official": -1.8191,
+            "skill_vs_persistence": 0.2495,
+            "skill_vs_weekly": 0.028,
+            "weekly": {
+              "bias": 1771.958,
+              "mae": 1790.625,
+              "n": 24,
+              "nmae_pct": 4.322,
+              "rmse": 2541.682
+            }
+          },
+          "2": {
+            "clock": {
+              "bias": 1136.852,
+              "mae": 1154.296,
+              "n": 24,
+              "nmae_pct": 2.786,
+              "rmse": 1812.008
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-15T00:27:37Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": 2073.222,
+              "mae": 2073.222,
+              "n": 24,
+              "nmae_pct": 5.004,
+              "rmse": 3005.164
+            },
+            "skill_vs_persistence": 0.4432,
+            "skill_vs_weekly": 0.3554,
+            "weekly": {
+              "bias": 1771.958,
+              "mae": 1790.625,
+              "n": 24,
+              "nmae_pct": 4.322,
+              "rmse": 2541.682
+            }
+          },
+          "3": {
+            "clock": {
+              "bias": 864.611,
+              "mae": 999.861,
+              "n": 24,
+              "nmae_pct": 2.413,
+              "rmse": 1723.745
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-14T02:02:27Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": 827.958,
+              "mae": 966.542,
+              "n": 24,
+              "nmae_pct": 2.333,
+              "rmse": 1704.269
+            },
+            "skill_vs_persistence": -0.0345,
+            "skill_vs_weekly": 0.4416,
+            "weekly": {
+              "bias": 1771.958,
+              "mae": 1790.625,
+              "n": 24,
+              "nmae_pct": 4.322,
+              "rmse": 2541.682
+            }
+          },
+          "4": {
+            "clock": {
+              "bias": 1179.278,
+              "mae": 1179.278,
+              "n": 24,
+              "nmae_pct": 2.846,
+              "rmse": 1895.467
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-13T09:32:51Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": 509.375,
+              "mae": 1209.125,
+              "n": 24,
+              "nmae_pct": 2.918,
+              "rmse": 1861.734
+            },
+            "skill_vs_persistence": 0.0247,
+            "skill_vs_weekly": 0.3414,
+            "weekly": {
+              "bias": 1771.958,
+              "mae": 1790.625,
+              "n": 24,
+              "nmae_pct": 4.322,
+              "rmse": 2541.682
+            }
+          },
+          "5": {
+            "clock": {
+              "bias": 1169.986,
+              "mae": 1173.458,
+              "n": 24,
+              "nmae_pct": 2.832,
+              "rmse": 1758.806
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-12T05:28:41Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": 1256.5,
+              "mae": 1256.5,
+              "n": 24,
+              "nmae_pct": 3.033,
+              "rmse": 1978.681
+            },
+            "skill_vs_persistence": 0.0661,
+            "skill_vs_weekly": 0.3447,
+            "weekly": {
+              "bias": 1771.958,
+              "mae": 1790.625,
+              "n": 24,
+              "nmae_pct": 4.322,
+              "rmse": 2541.682
+            }
+          }
+        },
+        "unit": "MW"
+      },
+      "wind": {
+        "actuals_complete": true,
+        "actuals_fetched_at": "2026-09-24T05:01:18Z",
+        "capacity_mw": 32451.4,
+        "daylight_only": false,
+        "leads": {
+          "1": {
+            "before_gate_closure": true,
+            "clock": {
+              "bias": -3419.167,
+              "mae": 4787.417,
+              "n": 24,
+              "nmae_pct": 14.753,
+              "rmse": 5890.311
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-16T00:07:29Z",
+            "model": "naive-v1",
+            "official": {
+              "bias": 40.677,
+              "mae": 838.531,
+              "n": 24,
+              "nmae_pct": 2.584,
+              "rmse": 982.185
+            },
+            "official_complete": true,
+            "official_first_seen_at": "2026-09-16T16:42:44Z",
+            "persistence": {
+              "bias": -3419.167,
+              "mae": 4787.417,
+              "n": 24,
+              "nmae_pct": 14.753,
+              "rmse": 5890.311
+            },
+            "skill_vs_official": -4.7093,
+            "skill_vs_persistence": 0.0,
+            "skill_vs_weekly": -0.5752,
+            "weekly": {
+              "bias": -3039.25,
+              "mae": 3039.25,
+              "n": 24,
+              "nmae_pct": 9.366,
+              "rmse": 3162.009
+            }
+          },
+          "2": {
+            "clock": {
+              "bias": -4877.861,
+              "mae": 4877.861,
+              "n": 24,
+              "nmae_pct": 15.031,
+              "rmse": 5358.934
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-15T00:27:37Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -4877.861,
+              "mae": 4877.861,
+              "n": 24,
+              "nmae_pct": 15.031,
+              "rmse": 5358.934
+            },
+            "skill_vs_persistence": 0.0,
+            "skill_vs_weekly": -0.605,
+            "weekly": {
+              "bias": -3039.25,
+              "mae": 3039.25,
+              "n": 24,
+              "nmae_pct": 9.366,
+              "rmse": 3162.009
+            }
+          },
+          "3": {
+            "clock": {
+              "bias": -3584.125,
+              "mae": 3584.125,
+              "n": 24,
+              "nmae_pct": 11.045,
+              "rmse": 3958.48
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-14T02:02:27Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -3584.125,
+              "mae": 3584.125,
+              "n": 24,
+              "nmae_pct": 11.045,
+              "rmse": 3958.48
+            },
+            "skill_vs_persistence": 0.0,
+            "skill_vs_weekly": -0.1793,
+            "weekly": {
+              "bias": -3039.25,
+              "mae": 3039.25,
+              "n": 24,
+              "nmae_pct": 9.366,
+              "rmse": 3162.009
+            }
+          },
+          "4": {
+            "clock": {
+              "bias": -1628.958,
+              "mae": 1737.125,
+              "n": 24,
+              "nmae_pct": 5.353,
+              "rmse": 2077.373
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-13T09:32:51Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -1628.958,
+              "mae": 1737.125,
+              "n": 24,
+              "nmae_pct": 5.353,
+              "rmse": 2077.373
+            },
+            "skill_vs_persistence": 0.0,
+            "skill_vs_weekly": 0.4284,
+            "weekly": {
+              "bias": -3039.25,
+              "mae": 3039.25,
+              "n": 24,
+              "nmae_pct": 9.366,
+              "rmse": 3162.009
+            }
+          },
+          "5": {
+            "clock": {
+              "bias": -2628.542,
+              "mae": 3478.875,
+              "n": 24,
+              "nmae_pct": 10.72,
+              "rmse": 4616.307
+            },
+            "hours_in_day": 24,
+            "hours_scored": 24,
+            "issued_at": "2026-09-12T05:28:41Z",
+            "model": "naive-v1",
+            "persistence": {
+              "bias": -2628.542,
+              "mae": 3478.875,
+              "n": 24,
+              "nmae_pct": 10.72,
+              "rmse": 4616.307
+            },
+            "skill_vs_persistence": 0.0,
+            "skill_vs_weekly": -0.1446,
+            "weekly": {
+              "bias": -3039.25,
+              "mae": 3039.25,
+              "n": 24,
+              "nmae_pct": 9.366,
+              "rmse": 3162.009
+            }
+          }
+        },
+        "unit": "MW"
+      }
+    }
+  }
+}
