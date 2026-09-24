@@ -112,6 +112,20 @@ def score_intraday(day: date, zone: str, actuals: dict, cap_by_target: dict) -> 
     return out
 
 
+def ready(day: date, final: bool) -> bool:
+    """A day is scored for a stage only once every zone has its actuals for it.
+
+    The score file is written once. Scoring as soon as one zone had actuals
+    froze the other zone out of the preliminary score for good: from 19 to 21
+    September 2026 the platform published DE-LU generation a day late, Spain
+    was complete, and the DE-LU day-ahead went unscored until the final stage.
+    Waiting costs at most a day, because actuals older than yesterday are
+    stored whether or not the platform completed them."""
+    if not forecasts_for(day):
+        return False
+    return all(store.actuals_path(z, day.isoformat(), final).exists() for z in config.ZONES)
+
+
 def score_day(day: date, final: bool, now: datetime | None = None) -> tuple[str, bool]:
     """Write the score file for a delivery day and stage. Returns (path, written)."""
     now = now or utc_now()

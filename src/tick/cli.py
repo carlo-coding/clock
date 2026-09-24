@@ -54,7 +54,7 @@ def cmd_daily(args) -> int:
     for back in range(1, config.HISTORY_DAYS):
         day = now.date() - timedelta(days=back)
         for final in (False, True):
-            if any(store.actuals_path(z, day.isoformat(), final).exists() for z in config.ZONES) and score.forecasts_for(day):
+            if score.ready(day, final):
                 p, w = score.score_day(day, final, now)
                 if w:
                     print(f"  scored {_rel(p)}")

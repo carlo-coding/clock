@@ -68,3 +68,20 @@ def test_score_day_end_to_end(tmp_path, monkeypatch):
     # Scoring again does nothing: the file is never rewritten.
     path2, written2 = score.score_day(day, final=False)
     assert not written2
+
+
+def test_a_day_is_not_scored_until_every_zone_has_actuals(tmp_path, monkeypatch):
+    """19-21 Sep 2026: Spain complete, DE-LU a day late, and the preliminary score went out without DE-LU."""
+    monkeypatch.setattr(config, "FORECASTS", tmp_path / "forecasts")
+    monkeypatch.setattr(config, "ACTUALS", tmp_path / "actuals")
+    day = date(2026, 9, 20)
+    store.write_new(
+        store.forecast_path("2026-09-19"),
+        {"issued_at": "2026-09-19T00:08:00Z", "before_gate_closure": True, "model": "naive-v1",
+         "zones": {"ES": {"wind": {"leads": {"1": {"delivery_day": day.isoformat(), "hours": {}}}}}}},
+    )
+    store.write_new(store.actuals_path("ES", day.isoformat(), final=False), {"targets": {}})
+    assert not score.ready(day, final=False)
+    store.write_new(store.actuals_path("DE-LU", day.isoformat(), final=False), {"targets": {}})
+    assert score.ready(day, final=False)
+    assert not score.ready(day, final=True)
